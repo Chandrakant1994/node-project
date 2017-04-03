@@ -1,0 +1,46 @@
+<% include partials/header %>
+<h1> <%= title %> </h1>
+
+
+<form method = "POST" action = "/users/add">
+
+<label >firstname</label> <br>
+<input type="text" name = "firstname"> <br>
+
+<label >age</label><br>
+<input type="text" name = "age"> <br>
+
+<label >email</label><br>
+<input type="text" name = "email"> <br>
+
+<br>
+<input type="submit" value = "submit">
+
+</form>
+
+<div ng-app = "test" ng-controller = "testCtrl" ng-init="editMode = false" >
+<table>
+ <% users.forEach(function(user,key){ %>
+
+   <tr> <td> <span ng-hide = "editMode"> <%= user.name %>  </span>
+   <input ng-show="editMode" class="name"  type = "text" data-id = "<%= user._id %>" value ="<%= user.name %>"/>
+   </td>
+   <td> <span ng-hide = "editMode"> <%= user.age %>  </span>
+   <input ng-show="editMode" class= "age"  type = "text" data-id = "<%= user._id %>" value ="<%= user.age %>"/>
+   </td>
+   <td> <span ng-hide = "editMode"> <%= user.email %>  </span>
+   <input ng-show="editMode" class= "email"  type = "text" data-id = "<%= user._id %>" value ="<%= user.email %>"/>
+   </td>
+   <td>
+   <a href = "#" data-id = "<%= user._id %>"  class ="deleteUser" ng-click="deleteUser($event)">Delete</a>
+   <a href = "#" data-id = "<%= user._id %>"  ng-click="editMode = true" ng-hide = "editMode">Edit</a>
+   <a href = "#" data-id = "<%= user._id %>"  ng-click=" editMode = false;" ng-show = "editMode" class ="updateUser">Update</a>
+   </td>
+   </tr>
+    
+<%})%> 
+</table>
+
+</div>
+
+<% include partials/footer %>
