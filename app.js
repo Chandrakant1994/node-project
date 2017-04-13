@@ -88,6 +88,8 @@ app.post("/users/add", function(req,res){
     })
 })
 
-app.listen(3030, function(){
+var port = process.env.PORT || 8080;
+
+app.listen(port, function(){
     console.log("Server started on port 3030....");
 });
