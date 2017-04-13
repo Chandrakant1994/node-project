@@ -1,40 +1,91 @@
+
 <% include partials/header %>
+
+<div class = "container">
 <h1> <%= title %> </h1>
+<form method = "POST" action = "/users/add" >
+<table>
+<thead>
+<tr>
+<td>Name</td>
+<td>Email</td>
+<td>Date of birth</td>
+<td>Department</td>
+<td>Gender</td>
+<td>Age</td>
+</tr>
+</thead>
+<tr>
+<td>
 
+<input type="text" name = "firstname" class = "form-control" placeholder = "name"> 
+</td>
+<td>
 
-<form method = "POST" action = "/users/add">
+<input type="text" name = "email" class = "form-control" placeholder = "email">
+</td>
+<td>
 
-<label >firstname</label> <br>
-<input type="text" name = "firstname"> <br>
+<input type="date" name = "dob" class = "form-control dob" id ="date" >
+                
+</td>
+<td>
 
-<label >age</label><br>
-<input type="text" name = "age"> <br>
+<input type="text" name = "department" class = "form-control" placeholder = "department">
+</td>
+<td>
+<select name="gender" id="gender">
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+</select>
+</td>
 
-<label >email</label><br>
-<input type="text" name = "email"> <br>
+<td>
 
-<br>
-<input type="submit" value = "submit">
+<input type="number" name = "age" class = "form-control" placeholder = "age"  id = 'age' readonly> 
+</td>
 
+<td>
+<input type="submit" value = "submit" class = "form-control btn btn-primary">
+</td>
+</tr>
+</table>
 </form>
 
 <div ng-app = "test" ng-controller = "testCtrl" ng-init="editMode = false" >
-<table>
+<table class = "table table-responsive">
  <% users.forEach(function(user,key){ %>
 
-   <tr> <td> <span ng-hide = "editMode"> <%= user.name %>  </span>
-   <input ng-show="editMode" class="name"  type = "text" data-id = "<%= user._id %>" value ="<%= user.name %>"/>
+   <tr> <td> <span class = "fixed"> <%= user.name %>  </span>
+   <input  class="name form-control editable"  type = "text" data-id = "<%= user._id %>" value ="<%= user.name %>"/>
    </td>
-   <td> <span ng-hide = "editMode"> <%= user.age %>  </span>
-   <input ng-show="editMode" class= "age"  type = "text" data-id = "<%= user._id %>" value ="<%= user.age %>"/>
+   
+   <td> <span class = "fixed"> <%= user.email %>  </span>
+   <input  class= "email form-control editable"  type = "text" data-id = "<%= user._id %>" value ="<%= user.email %>"/>
    </td>
-   <td> <span ng-hide = "editMode"> <%= user.email %>  </span>
-   <input ng-show="editMode" class= "email"  type = "text" data-id = "<%= user._id %>" value ="<%= user.email %>"/>
+
+   <td> <span class = "fixed"> <%= user.dob %>  </span>
+   <input  class= "dob form-control editable"  type = "date" data-id = "<%= user._id %>" value ="<%= user.dob %>"/>
+   </td>
+
+   <td> <span class = "fixed"> <%= user.department %>  </span>
+   <input  class= "department form-control editable"  type = "text" data-id = "<%= user._id %>" value ="<%= user.department %>"/>
+   </td>
+
+   <td> <span class = "fixed"> <%= user.gender %>  </span>
+   <select class= "gender form-control editable"  type = "text" data-id = "<%= user._id %>" value ="<%= user.gender %>">
+   <option value="Male">Male</option>
+   <option value="Female">Female</option>
+   </select>
+   </td>
+
+   <td> <span class = "fixed"> <%= user.age %>  </span>
+   <input  class= "age form-control editable" id = "age" type = "number" data-id = "<%= user._id %>" value ="<%= user.age %>" readonly/>
    </td>
    <td>
-   <a href = "#" data-id = "<%= user._id %>"  class ="deleteUser" ng-click="deleteUser($event)">Delete</a>
-   <a href = "#" data-id = "<%= user._id %>"  ng-click="editMode = true" ng-hide = "editMode">Edit</a>
-   <a href = "#" data-id = "<%= user._id %>"  ng-click=" editMode = false;" ng-show = "editMode" class ="updateUser">Update</a>
+   <a href = "#" data-id = "<%= user._id %>"  class ="deleteUser btn btn-danger" ng-click="deleteUser($event)">Delete</a>
+   <a href = "#" data-id = "<%= user._id %>"  ng-click="editMode = true" class = "editUser btn btn-info fixed" >Edit</a>
+   <a href = "#" data-id = "<%= user._id %>"  ng-click=" editMode = false;"  class ="updateUser  btn btn-success editable">Update</a>
    </td>
    </tr>
     
@@ -42,5 +93,5 @@
 </table>
 
 </div>
-
+</div>
 <% include partials/footer %>
